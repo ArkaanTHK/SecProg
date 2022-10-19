@@ -1,0 +1,67 @@
+/* Navbar */
+.navbar-brand {
+    font-family:Gugi, cursive;
+    margin-top: 5px;
+    font-size: 28px;
+}
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 0;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1030;
+}
+/* End of Navbar Config's */
+
+/* Line to divide Section's */
+hr.rounded{
+    margin-top: -100px;
+    margin-bottom: 100px;
+    width: 75%;
+    margin-left: 150px;
+    height: auto;
+}
+
+hr.rounded-2{
+    margin-top: 100px;
+    margin-bottom: 25px;
+    width: 75%;
+    margin-left: 150px;
+    height: auto;
+}
+/* End of Line to divide Section's */
+
+
+/* Jumbotron Config's */
+.jumbotron{
+    background-color: #fff;
+    margin-top: 15px;
+    width: auto;
+    height: 200px;
+    text-align: center;
+}
+
+.athena{
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+    text-align: center;
+}
+.col-md-6{
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+    text-align: justify;
+}
+/* End of Jumbotron Config's */
+/* Footer */
+.footer{
+    background-color: #fff;
+    margin-top: 15px;
+    width: auto;
+    height: 100px;
+    text-align: center;
+}
