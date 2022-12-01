@@ -31,9 +31,6 @@ Route::get('/addblog', function () {
     return view('addblog');
 });
 
-// Route::get('/forum', function () {
-//     return view('forum');
-// });
 
 Route::get('/reset', function () {
     return view('reset');
