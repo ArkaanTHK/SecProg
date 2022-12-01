@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('judul');
             $table->text('deskripsi');
-            $table->string('image')->nullable();
+            $table->string('image')->default('artikel/default.jpg');
         });
     }
 

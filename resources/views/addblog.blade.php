@@ -3,9 +3,18 @@
  
 <!-- membuat komponen title sebagai judul halaman -->
 @section('title', 'Menambah Artikel')
+
  
 <!-- membuat komponen main yang berisi form untuk mengisi judul dan isi artikel -->
 @section('main')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+                <li>{{ $errors->first('image') }}</li>
+        </ul>
+    </div>
+@endif
+
 <div class="col-md-8 col-sm-12 bg-white p-4">
     <form method="post" action="/addblog_process" enctype="multipart/form-data">
     @csrf

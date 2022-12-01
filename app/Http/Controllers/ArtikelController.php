@@ -29,6 +29,40 @@ class ArtikelController extends Controller
 
     public function addblog_process(Request $article)
     {
+        // if ($article->file('image')) {
+        //     Artikel::create([
+        //         'judul' => $article->judul,
+        //         'deskripsi' => $article->deskripsi,
+        //         'image' => $article->file('image')->store('artikel'),
+        //     ]);
+        // } else if (getimagesize($article->image)) {
+        //     Artikel::create([
+        //         'judul' => $article->judul,
+        //         'deskripsi' => $article->deskripsi,
+        //         'image' => $article->image,
+        //     ]);
+        // } else {
+        //     Session::flash('error', 'Image is not valid');
+        //     return redirect()->back();
+        // }
+        // return redirect()->action([ArtikelController::class, 'show']);
+
+        //Validate the Article, if it fails, redirect back to the form with the errors and if it passes, save the article
+        $article->validate(
+            [
+                'judul' => 'required',
+                'deskripsi' => 'required',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|image|max:2048',
+            ],
+            [
+                'judul.required' => 'Judul harus diisi',
+                'deskripsi.required' => 'Deskripsi harus diisi',
+                'image.mimes' => 'File harus berupa gambar dengan format jpeg, png, jpg, gif, svg',
+                'image.max' => 'Ukuran file maksimal 2 MB',
+            ]
+        );
+
+
         if ($article->file('image')) {
             Artikel::create([
                 'judul' => $article->judul,
@@ -39,14 +73,10 @@ class ArtikelController extends Controller
             Artikel::create([
                 'judul' => $article->judul,
                 'deskripsi' => $article->deskripsi,
+                'image' => 'artikel/default.jpg',
             ]);
         }
-
-        // dd($article->file('image')->store('/artikel'));
-        // $article->file('image')->store('/artikel');
         return redirect()->action([ArtikelController::class, 'show']);
-        // return redirect('/showblog');
-        // return $article->file('image')->store('/artikel');
     }
 
 
