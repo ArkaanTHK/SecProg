@@ -60,10 +60,23 @@
     {
         text-decoration: none;
     }
+    ol, ul
+    {
+        padding-left: 1rem;
+    }
 
     .deleted
     {
         opacity: 0.65;
+    }
+    .navbar
+    {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .navbar-brand
+    {
+        margin-left: 1rem !important;
     }
 
     #main
@@ -73,7 +86,7 @@
 
     .shadow-sm
     {
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
     }
 
     .card.category
@@ -165,6 +178,9 @@
     {
         background: var(--bs-light);
     }
+    .navbar-brand {
+        margin-top: 5px;
+    }
 
     @media (max-width: 575.98px)
     {
@@ -176,23 +192,23 @@
     .navbar-brand
     {
         font-family: 'Gugi', cursive;
-        font-size: 1.5em;   
+        font-size: 28px;
     }
     .navbar{
-        padding-inline: 100px !important;
+        border-bottom: 1px solid #e5e5e5;
     }
 
     </style>
 </head>
 <body>
-    <nav class="v-navbar navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">Athena</a>
+    <nav class="v-navbar navbar navbar-expand-md navbar-light bg-light shadow-sm">
+        <div class="container align-items-center">
+            <a class="navbar-brand" href="/">Athena</a>
             <button class="navbar-toggler" type="button" :class="{ collapsed: isCollapsed }" @click="isCollapsed = ! isCollapsed">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" :class="{ show: !isCollapsed }">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto ml-1 p-0">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a>
                     </li>
