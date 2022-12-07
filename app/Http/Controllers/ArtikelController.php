@@ -91,13 +91,12 @@ class ArtikelController extends Controller
     public function edit($id)
     {
         $article = Artikel::find($id);
-        if (auth()->user()->id != $article->user_id) {
+        if (auth()->user()->id !== $article->user_id) {
             return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to edit this article');
         } else {
 
             return view('editblog', ['article' => $article]);
         }
-        // return view('editblog', ['article' => $article]);
     }
 
     public function detail($id)
@@ -151,6 +150,9 @@ class ArtikelController extends Controller
                 'image.max' => 'Ukuran file maksimal 2 MB',
             ]
         );
+        if (auth()->user()->id != $article->user_id) {
+            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to edit this article');
+        }
         $edit = Artikel::find($article->id);
         if ($article->file('image')) {
             $edit->update([
@@ -178,8 +180,13 @@ class ArtikelController extends Controller
     public function delete(Request $article)
     {
         $delete = Artikel::find($article->id);
-        $delete->delete();
-        Session::flash('success', 'Artikel berhasil dihapus');
-        return redirect()->back();
+        // dd($delete);
+        if (auth()->user()->id !== $delete->user_id) {
+            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to delete   this article');
+        } else {
+            $delete->delete();
+            Session::flash('success', 'Artikel berhasil dihapus');
+            return redirect()->back();
+        }
     }
 }
