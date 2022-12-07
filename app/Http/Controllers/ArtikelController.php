@@ -11,8 +11,13 @@ class ArtikelController extends Controller
 {
     public function show()
     {
-        $articles = DB::table('artikels')->orderby('id', 'desc')->get();
-        return view('showblog', ['articles' => $articles]);
+        // Check if user is logged in
+        if (auth()->user()) {
+            $articles = DB::table('artikels')->orderby('id', 'desc')->get();
+            return view('showblog', ['articles' => $articles]);
+        } else {
+            return redirect('/login');
+        }
     }
 
     public function show3()
@@ -68,12 +73,14 @@ class ArtikelController extends Controller
                 'judul' => $article->judul,
                 'deskripsi' => $article->deskripsi,
                 'image' => $article->file('image')->store('artikel'),
+                'user_id' => auth()->user()->id,
             ]);
         } else {
             Artikel::create([
                 'judul' => $article->judul,
                 'deskripsi' => $article->deskripsi,
                 'image' => 'artikel/default.jpg',
+                'user_id' => auth()->user()->id,
             ]);
         }
         return redirect()->action([ArtikelController::class, 'show']);
@@ -95,8 +102,16 @@ class ArtikelController extends Controller
 
     public function show_by_admin()
     {
-        $articles = DB::table('artikels')->orderby('id', 'desc')->get();
-        return view('adminblog', ['articles' => $articles]);
+        if (!auth()->user()) {
+            return redirect()->action([LoginController::class, 'login']);
+        }
+        if (auth()->user()->isAdmin == 1) {
+            $articles = DB::table('artikels')->orderby('id', 'desc')->get();
+            return view('adminblog', ['articles' => $articles]);
+        } else (auth()->user()->isAdmin == 0); {
+            $articles = DB::table('artikels')->where('user_id', auth()->user()->id)->orderby('id', 'desc')->get();
+            return view('adminblog', ['articles' => $articles]);
+        }
     }
 
     // public function edit($id)
@@ -132,6 +147,6 @@ class ArtikelController extends Controller
         $delete = Artikel::find($article->id);
         $delete->delete();
         Session::flash('success', 'Artikel berhasil dihapus');
-        return redirect()->action([ArtikelController::class, 'show_by_admin']);
+        return redirect()->back();
     }
 }

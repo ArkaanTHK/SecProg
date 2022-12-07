@@ -6,6 +6,12 @@
  
 <!-- membuat header dan tombol tambah artikel di atas -->
 @section('header')
+@if($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+          <strong>{{ $message }}</strong>
+    </div>
+@endif
       <!-- Jumbotron Card Bootstrap -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -31,6 +37,12 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $article->judul }}</h5>
                 <a href="/detailblog/{{ $article->id }}" class="btn btn-primary">Read</a>
+                @auth
+                @if(Auth::user()->id == $article->user_id)
+                <a href="/editblog/{{ $article->id }}" class="btn btn-warning">Edit</a>
+                <a href="/deleteblog/{{ $article->id }}" class="btn btn-danger">Delete</a>
+                @endif
+                @endauth
             </div>
         </div>
     </div>

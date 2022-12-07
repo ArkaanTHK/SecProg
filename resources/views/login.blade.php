@@ -40,6 +40,13 @@
 
 
 <!-- Login Box -->
+    @if(session()->has('alert'))
+    <div class="container">
+    <div class="alert alert-danger">
+        {{ session()->get('alert') }}
+    </div>
+    </div>
+    @endif
     @if(session()->has('success'))
     <div class="container">
     <div class="alert alert-success">

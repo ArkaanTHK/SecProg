@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('image')->default('artikel/default.jpg');
+            $table->string('user_id');
         });
     }
 

@@ -34,6 +34,11 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                         <a class="nav-link" href="/about">About</a>
                         <a class="nav-link" href="/showblog">Blog</a>
+                        @auth
+                        @if (Auth::user()->isAdmin == 1)
+                        <a class="nav-link" href="/adminblog">Adminblog</a>
+                        @endif
+                        @endauth
                         <a class="nav-link" href="/forum">Forum</a>
                         @auth
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
