@@ -22,8 +22,16 @@ class RegisterController extends Controller
             'username' => ['required', 'min:8', 'max:20', 'unique:users'],
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:5|max:100',
-
-        ]));
+        ]), [
+            'name.required' => 'Name is required',
+            'username.required' => 'Username is required',
+            'username.unique' => 'Username already exists',
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email already exists',
+            'email.email' => 'Email is invalid',
+            'password.required' => 'Password is required',
+            'password.min' => 'Password must be at least 5 characters'
+        ]);
         // User::create([
         //     'name' => $request->name,
         //     'username' => $request->username,

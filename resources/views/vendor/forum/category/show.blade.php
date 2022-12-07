@@ -4,7 +4,8 @@
 @section('content')
     <div class="d-flex flex-row justify-content-between mb-2">
         <h2 style="color: {{ $category->color }};">
-            {{ $category->title }} &nbsp;
+            {{ $category->title }}
+            <div class="vr bg-dark"></div>
             @if ($category->description)
                 <small>{{ $category->description }}</small>
             @endif

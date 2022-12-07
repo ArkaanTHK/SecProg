@@ -44,19 +44,39 @@
     <form action="/register" method="POST">
         @csrf
         <div class="user-box">
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" placeholder="" required>
+            @if($errors->has('name'))
+                <div class="error" role="alert">
+                    {{$errors->first('name')}}
+                </div>
+            @endif
             <label>Name</label>
         </div>
         <div class="user-box">
-            <input type="text" name="username" id="username" required>
+            <input type="text" name="username" id="username" placeholder="" required>
+            @if($errors->has('username'))
+                <div class="error" role="alert">
+                    {{$errors->first('username')}}
+                </div>
+            @endif
             <label>Username</label>
         </div>
         <div class="user-box">
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" placeholder="" required>
+            @if($errors->has('email'))
+                <div class="error" role="alert">
+                    {{$errors->first('email')}}
+                </div>
+            @endif
             <label>Email</label>
         </div>
         <div class="user-box">
-            <input type="password" name="password" required>
+            <input type="password" name="password" placeholder="" required>
+            @if($errors->has('password'))
+                <div class="error" role="alert">
+                    {{$errors->first('password')}}
+                </div>
+            @endif
             <label>Password</label>
         </div>
         <button type="submit" class="btn btn-primary signup">Sign Up</button>
