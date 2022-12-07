@@ -91,7 +91,13 @@ class ArtikelController extends Controller
     public function edit($id)
     {
         $article = Artikel::find($id);
-        return view('editblog', ['article' => $article]);
+        if (auth()->user()->id != $article->user_id) {
+            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to edit this article');
+        } else {
+
+            return view('editblog', ['article' => $article]);
+        }
+        // return view('editblog', ['article' => $article]);
     }
 
     public function detail($id)
@@ -132,14 +138,41 @@ class ArtikelController extends Controller
     // }
     public function edit_process(Request $article)
     {
-        // dd($article->judul);
+        $article->validate(
+            [
+                'judul' => 'required',
+                'deskripsi' => 'required',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|image|max:2048',
+            ],
+            [
+                'judul.required' => 'Judul harus diisi',
+                'deskripsi.required' => 'Deskripsi harus diisi',
+                'image.mimes' => 'File harus berupa gambar dengan format jpeg, png, jpg, gif, svg',
+                'image.max' => 'Ukuran file maksimal 2 MB',
+            ]
+        );
         $edit = Artikel::find($article->id);
-        $edit->update([
-            'judul' => $article->judul,
-            'deskripsi' => $article->deskripsi,
-            'image' => $article->image,
-        ]);
-        return redirect('/adminblog');
+        if ($article->file('image')) {
+            $edit->update([
+                'judul' => $article->judul,
+                'deskripsi' => $article->deskripsi,
+                'image' => $article->file('image')->store('artikel'),
+                'user_id' => auth()->user()->id,
+            ]);
+        } else {
+            $edit->update([
+                'judul' => $article->judul,
+                'deskripsi' => $article->deskripsi,
+                'image' => 'artikel/default.jpg',
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+        Session::flash('success', 'Artikel berhasil diedit');
+        if (auth()->user()->isAdmin == 1) {
+            return redirect()->action([ArtikelController::class, 'show_by_admin']);
+        } else {
+            return redirect()->action([ArtikelController::class, 'show']);
+        }
     }
 
     public function delete(Request $article)

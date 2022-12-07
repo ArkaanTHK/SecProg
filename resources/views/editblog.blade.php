@@ -23,6 +23,10 @@
             <textarea class="form-control" name="deskripsi" rows="15">{{ $article->deskripsi }}
             </textarea>
         </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Gambar Artikel</label>
+            <input class="form-control" type="file" id="image" name="image">
+          </div>
 </div>
 @endsection
  
