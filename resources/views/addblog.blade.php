@@ -29,18 +29,16 @@
         <div class="mb-3">
             <label for="image" class="form-label">Gambar Artikel</label>
             <input class="form-control" type="file" id="image" name="image">
-          </div>
-          
-</div>
+        </div>
 @endsection
- 
 <!-- membuat komponen sidebar yang berisi tombol untuk upload artikel -->
 @section('sidebar')
-<div class="col-md-3 ml-md-5 col-sm-12 bg-white p-4" style="height:120px !important">
-    <div class="form-group">
-        <label>Upload</label>
-        <input type="submit" class="form-control btn btn-primary" value="Upload">
-    </div>
+        <div class="col-md-3 ml-md-5 col-sm-12 bg-white p-4" style="height:120px !important">
+            <div class="form-group">
+                <label>Upload</label>
+                <input type="submit" class="form-control btn btn-primary" value="Upload">
+            </div>
+        </div>
+    </form>
 </div>
-</form>
 @endsection

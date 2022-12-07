@@ -8,10 +8,19 @@
     <h2>Edit Artikel</h2>
 </center>
 @endsection
- 
+
 @section('main')
 <div class="col-md-8 col-sm-12 bg-white p-4">
-    <form method="post" action="/editblog_process/{{ $article->id }}">  
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <form method="post" action="/editblog_process/{{ $article->id }}" enctype="multipart/form-data">  
     @csrf
 	<input type="hidden" value="{{ $article->id }}" name="id">
         <div class="form-group">
@@ -20,22 +29,21 @@
         </div>
         <div class="form-group">
             <label>Isi Artikel</label>
-            <textarea class="form-control" name="deskripsi" rows="15">{{ $article->deskripsi }}
-            </textarea>
+            <textarea class="form-control" name="deskripsi" rows="15">{{ $article->deskripsi }}</textarea>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Gambar Artikel</label>
             <input class="form-control" type="file" id="image" name="image">
-          </div>
-</div>
+        </div>
+    </div>
 @endsection
- 
 <!-- membuat komponen sidebar yang berisi tombol untuk upload artikel -->
 @section('sidebar')
-<div class="col-md-3 ml-md-5 col-sm-12 bg-white p-4" style="height:120px !important
-    <div class="form-group">
-        <input type="submit" class="form-control btn btn-primary" value="Edit">
-    </div>
-</div>
-</form>
+        <div class="col-md-3 ml-md-5 col-sm-12 bg-white p-4" style="height:120px !important">
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-primary" value="Edit">
+            </div>
+        </div>
+    </form>
+
 @endsection

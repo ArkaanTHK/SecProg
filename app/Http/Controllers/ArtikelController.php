@@ -94,7 +94,6 @@ class ArtikelController extends Controller
         if (auth()->user()->id !== $article->user_id) {
             return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to edit this article');
         } else {
-
             return view('editblog', ['article' => $article]);
         }
     }
@@ -141,7 +140,7 @@ class ArtikelController extends Controller
             [
                 'judul' => 'required',
                 'deskripsi' => 'required',
-                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|image|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
                 'judul.required' => 'Judul harus diisi',
@@ -150,10 +149,11 @@ class ArtikelController extends Controller
                 'image.max' => 'Ukuran file maksimal 2 MB',
             ]
         );
-        if (auth()->user()->id != $article->user_id) {
+        $edit = Artikel::find($article->id);
+        if (auth()->user()->id != $edit->user_id) {
             return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to edit this article');
         }
-        $edit = Artikel::find($article->id);
+
         if ($article->file('image')) {
             $edit->update([
                 'judul' => $article->judul,
@@ -165,7 +165,6 @@ class ArtikelController extends Controller
             $edit->update([
                 'judul' => $article->judul,
                 'deskripsi' => $article->deskripsi,
-                'image' => 'artikel/default.jpg',
                 'user_id' => auth()->user()->id,
             ]);
         }
@@ -182,7 +181,7 @@ class ArtikelController extends Controller
         $delete = Artikel::find($article->id);
         // dd($delete);
         if (auth()->user()->id !== $delete->user_id) {
-            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to delete   this article');
+            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to delete this article');
         } else {
             $delete->delete();
             Session::flash('success', 'Artikel berhasil dihapus');
