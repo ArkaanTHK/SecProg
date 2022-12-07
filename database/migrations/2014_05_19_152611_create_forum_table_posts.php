@@ -17,7 +17,6 @@ class CreateForumTablePosts extends Migration
             $table->integer('parent_thread')->unsigned();
             $table->integer('author_id')->unsigned();
             $table->text('content');
-
             $table->timestamps();
             $table->softDeletes();
         });

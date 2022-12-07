@@ -45,6 +45,7 @@ Route::post('/editblog_process/{id}', [ArtikelController::class, 'edit_process']
 Route::get('/deleteblog/{id}', [ArtikelController::class, 'delete']);
 
 
+
 Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
