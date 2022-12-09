@@ -29,7 +29,6 @@
                   <a class="nav-link" href="/">Home</a>
                   <a class="nav-link" href="/about">About</a>
                   <a class="nav-link" href="/showblog">Blog</a>
-                  <a class="nav-link" href="/forum">Forum</a>
                   <a class="nav-link" href="/register">Signup</a>
               </div>
           </div>
