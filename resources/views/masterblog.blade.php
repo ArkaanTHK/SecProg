@@ -36,22 +36,6 @@
                             @endif
                           @endif
                           @endauth
-                          <a class="nav-link" href="/forum">Forum</a>
-                          @auth
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Welcome, {{ Auth::user()->username }}
-                            </a>
-                            <li class="nav-item dropdown">
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                              <form action="/logout" method="post">
-                                  @csrf
-                                  <li><button type="submit" class="dropdown-item">Logout</button></li>
-                              </form>
-                            </ul>
-                            </li>
-                            @else
-                            <a class="nav-link" href="/login">Login</a>
-                            @endauth
                       </div>
                   </div>
               </div>
