@@ -39,7 +39,6 @@
                         <a class="nav-link" href="/adminblog">Adminblog</a>
                         @endif
                         @endauth
-                        <a class="nav-link" href="/forum">Forum</a>
                         @auth
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Welcome, {{ Auth::user()->username }}
