@@ -11,7 +11,6 @@ class ArtikelController extends Controller
 {
     public function show()
     {
-        // Check if user is logged in
         if (auth()->user()) {
             $articles = DB::table('artikels')->orderby('id', 'desc')->get();
             return view('showblog', ['articles' => $articles]);
@@ -34,25 +33,6 @@ class ArtikelController extends Controller
 
     public function addblog_process(Request $article)
     {
-        // if ($article->file('image')) {
-        //     Artikel::create([
-        //         'judul' => $article->judul,
-        //         'deskripsi' => $article->deskripsi,
-        //         'image' => $article->file('image')->store('artikel'),
-        //     ]);
-        // } else if (getimagesize($article->image)) {
-        //     Artikel::create([
-        //         'judul' => $article->judul,
-        //         'deskripsi' => $article->deskripsi,
-        //         'image' => $article->image,
-        //     ]);
-        // } else {
-        //     Session::flash('error', 'Image is not valid');
-        //     return redirect()->back();
-        // }
-        // return redirect()->action([ArtikelController::class, 'show']);
-
-        //Validate the Article, if it fails, redirect back to the form with the errors and if it passes, save the article
         $article->validate(
             [
                 'judul' => 'required',
@@ -109,31 +89,15 @@ class ArtikelController extends Controller
         if (!auth()->user()) {
             return redirect()->action([LoginController::class, 'login']);
         }
+
         if (auth()->user()->isAdmin == 1) {
             $articles = DB::table('artikels')->orderby('id', 'desc')->get();
             return view('adminblog', ['articles' => $articles]);
-        } else (auth()->user()->isAdmin == 0); {
-            $articles = DB::table('artikels')->where('user_id', auth()->user()->id)->orderby('id', 'desc')->get();
-            return view('adminblog', ['articles' => $articles]);
+        } else if (auth()->user()->isAdmin == 0) {
+            return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to view this page');
         }
     }
 
-    // public function edit($id)
-    // {
-    //     $article = DB::table('artikel')->where('id', $id)->first();
-    //     return view('editblog', ['article' => $article]);
-    // }
-
-    // public function edit_process(Request $article)
-    // {
-    //     $id = $article->id;
-    //     $judul = $article->judul;
-    //     $deskripsi = $article->deskripsi;
-    //     DB::table('artikels')->where('id', $id)
-    //         ->update(['judul' => $judul, 'deskripsi' => $deskripsi]);
-    //     Session::flash('success', 'Artikel berhasil diedit');
-    //     return redirect()->action([ArtikelController::class, 'show_by_admin']);
-    // }
     public function edit_process(Request $article)
     {
         $article->validate(
@@ -179,7 +143,6 @@ class ArtikelController extends Controller
     public function delete(Request $article)
     {
         $delete = Artikel::find($article->id);
-        // dd($delete);
         if (auth()->user()->id !== $delete->user_id) {
             return redirect()->action([ArtikelController::class, 'show'])->with('error', 'You are not authorized to delete this article');
         } else {

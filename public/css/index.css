@@ -45,10 +45,15 @@
 
 /* End of Jumbotron Config's */
 
+
 /* Cards Config */
 
+.latest {
+    margin-bottom: 20px;
+}
+
 .cards {
-    margin-top: 150px;
+    margin-top: 110px;
 }
 
 .bintang img {

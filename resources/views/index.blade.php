@@ -69,11 +69,9 @@
           <p class="lead">Solution of All Solution</p>
         </div>
        <!-- Card -->
-
       <div class="container">
         <div class="row cards">
-
-
+          <p class="h3 text-center latest">Latest Article</h1>
           @foreach ($articles as $article)
           @if($article->image != null)
           <div class="col-md-4 bintang">
@@ -82,6 +80,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ $article->judul }}</h5>
                 <p class="card-text">{{ $article->deskripsi }}</p>
+                <a href="/detailblog/{{ $article->id }}" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>
@@ -93,6 +92,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ $article->judul }}</h5>
                 <p class="card-text">{{ $article->deskripsi }}</p>
+                <a href="/detailblog/{{ $article->id }}" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>

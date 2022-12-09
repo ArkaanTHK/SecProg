@@ -32,7 +32,7 @@
 <!-- menampilkan tombol kembali ke halaman utama -->
 @section('sidebar')
 <div class="col-md-4 offset-md-1 col-sm-12 bg-white p-4 h-100">
-        <a href="/showblog"> 
+        <a href="{{ url()->previous() }}">
             <button class="btn btn-info text-white w-100">Kembali</button> 
         </a>
 
